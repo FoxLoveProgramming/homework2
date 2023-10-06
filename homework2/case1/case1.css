@@ -1,0 +1,48 @@
+.registry{
+    width: 28rem;
+    border: 1px solid black;
+}
+
+.registry th{
+    text-align: right;
+}
+
+.registry caption{
+    margin: 1rem;
+    text-align: left;
+    color: blue;
+}
+.registry span{
+    color: red;
+}
+
+.income{
+    appearance: none;
+    height: 3px;
+    background-color: gray;
+}
+
+.income::-webkit-slider-thumb{
+    appearance: none;
+    height: 15px;
+    width: 5px;
+    background-color: white;
+    border: 1px solid black;
+}
+
+#magicnumber{
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 6rem;
+    height: 1rem;
+    background-size: auto;
+}
+
+#cnumber{
+    width: 3rem;
+    height: 3rem;
+    border: 0 none none;
+    line-height: 1.5rem;
+    background-color: rgb(74,156,255);
+    border-radius: 100%;
+}

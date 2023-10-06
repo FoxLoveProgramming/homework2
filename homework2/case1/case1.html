@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="wvalueth=device-wvalueth, initial-scale=1.0" />
+  <title>case2</title>
+  <link rel="stylesheet" href="case1.css" />
+</head>
+
+<body>
+  <form action="#" method="post" class="registry">
+    <table>
+      <caption>
+        欢迎注册会员
+      </caption>
+      <tr>
+        <th>手机号码：</th>
+        <td><input type="text" name="pnumber" placeholder="11位手机号" /><span>必填</span></td>
+      </tr>
+      <tr>
+        <th>创建密码：</th>
+        <td><input type="password" name="key" placeholder="8位密码" /><span>必填</span></td>
+      </tr>
+      <tr>
+        <th>注册邮箱：</th>
+        <td><input type="text" name="address" placeholder="例如:wustzz@sina.com" /><span>必填</span></td>
+      </tr>
+      <tr>
+        <th>验证码：</th>
+        <td>
+          <input type="text" name="sum" />
+          <span id="magicnumber" style="background-color: rgb(222, 190, 231); display: inline-block; 
+          width: 4rem; height: auto;user-select: none;font-style: italic; vertical-align: middle;"></span>
+          <img src="../need/refresh.png" alt="checkcode" onclick="createCode()" width="30rem" height="30rem" style="vertical-align: middle;">
+        </td>
+      </tr>
+      <tr>
+        <th>性别：</th>
+        <td>
+          <input type="radio" name="sex" />男
+          <input type="radio" name="sex" />女
+        </td>
+      </tr>
+      <tr>
+        <th>生日：</th>
+        <td><input name="bday" value="年/月/日"></select></td>
+      </tr>
+      <tr>
+        <th>年龄：</th>
+        <td><input type="text" name="age"></td>
+      </tr>
+      <tr>
+        <th>籍贯：</th>
+        <td>
+          <select name="addr1">
+            <option value="huibei">湖北省</option>
+            <option value="huinan">湖南省</option>
+            <option value="sichuan">四川省</option>
+          </select>
+          <select name="addr2">
+            <option value="wuhan">武汉</option>
+            <option value="changsha">长沙</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <th>个人学历：</th>
+        <td><select name="level">
+            <option value="A">本科</option>
+            <option value="S">研究生</option>
+            <option value="SR">博士</option>
+          </select></td>
+      </tr>
+      <tr>
+        <th>月薪：</th>
+        <td>
+          <input type="range" name="income" id="income" min="1500" max="30000" step="100" value="5000" class="income">
+          <span id="show" style="color: black;"></span>
+        </td>
+
+      </tr>
+      <tr>
+        <th>个人爱好：</th>
+        <td>
+          <input type="checkbox" name="like" value="singing">唱歌
+          <input type="checkbox" name="like" value="running">跑步
+          <input type="checkbox" name="like" value="swimming">游泳
+        </td>
+      </tr>
+      <tr>
+        <th>个人照片：</th>
+        <td><input type="file" name="photo" accept="image/*" id="image-file"></td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><img id="image-preview"></td>
+      </tr>
+      <tr>
+        <th>个人简介：</th>
+        <td>
+          <textarea name="pinfor" cols="30" rows="10"></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>
+          <input type="submit" value="提交">
+          <input type="reset" value="重填" onclick="resetall()">
+        </td>
+      </tr>
+    </table>
+  </form>
+
+
+  <script>
+    var fileInput = document.getElementById('image-file');
+    var preview = document.getElementById('image-preview');
+    var magic = document.getElementById('magicnumber');
+    var income = document.getElementById('show'); // 根据id值找到span元素
+    var checkCode = document.getElementById("magicnumber");
+    var init_income;
+
+    /*
+    初始加载
+    */
+    window.onload = function () {
+      createCode();
+      income.innerHTML = document.getElementById('income').value; // 获取区间域初始value值
+      init_income = income.innerHTML;
+    }
+
+    /*
+    数据条数据显示
+    */
+    document.getElementById('income').onchange = function () {
+      income.innerHTML = this.value; // 将当前区间域的value作为span元素的内容
+    }
+
+    function createCode() {
+      code = "";
+      var codeLength = 4; //验证码的长度
+      var codeChars = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+        'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
+      //所有候选组成验证码的字符，当然也可以用中文的
+      for (var i = 0; i < codeLength; i++) {
+        var charNum = Math.floor(Math.random() * 52);
+        code += codeChars[charNum];
+      }
+      checkCode.innerHTML = code;
+      return code;
+    }
+
+    /*
+    显示图片
+    */
+    function resetall() {
+      preview.style.width = "0px";
+      preview.style.height = "0px";
+      income.innerHTML = init_income;
+    }
+
+    fileInput.addEventListener('change', function () { // 监听change事件
+      preview.style.backgroundImage = '';
+      if (!fileInput.value) {
+        preview.style.width = "0px";//无效则关闭窗口
+        preview.style.height = "0px"
+        return;
+      }
+
+      var file = fileInput.files[0]; // 获取File引用
+
+      if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
+        //cleanall();
+        alert('不是有效的图片文件!');
+        return;
+      }
+
+      var reader = new FileReader(); // 读取文件
+
+      //改变预览窗口大小显示图片
+      if (preview.style.width != "16rem") {
+        preview.style.width = "16rem";
+        preview.style.height = "16rem";
+        preview.style.backgroundSize = "16rem 16rem";
+      }
+
+      reader.onload = function (e) { // 发起一个异步操作来读取文件内容
+        var data = e.target.result; // data串形如： 'data:image/jpeg;base64,/9j/4AAQSk...(base64编码)...
+        preview.style.backgroundImage = 'url(' + data + ')';
+      };
+      reader.readAsDataURL(file); // 以DataURL的形式读取文件
+    });
+  </script>
+</body>
+
+</html>
